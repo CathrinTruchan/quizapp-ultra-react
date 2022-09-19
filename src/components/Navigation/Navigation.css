@@ -11,7 +11,9 @@
 }
 
 .menu__link {
-  text-decoration: none;
+  background: transparent;
+  border: none;
+  font-size: 1em;
   color: var(--neutral-color);
   font-size: 26px;
   padding: 5px 15px;
@@ -19,6 +21,7 @@
 
 .menu__link:hover {
   color: var(--secondary-color);
+  cursor: pointer;
 }
 
 .menu__link--active {

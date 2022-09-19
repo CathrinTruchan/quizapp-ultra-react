@@ -3,21 +3,21 @@ import "./Navigation.css";
 export default function Navigation() {
   return (
     <nav className="menu">
-      <div className="menu__link menu__link--active">
+      <button className="menu__link menu__link--active">
         <i className="fa fa-home"></i>
-      </div>
+      </button>
 
-      <div className="menu__link">
+      <button className="menu__link">
         <i className="fa fa-bookmark"></i>
-      </div>
+      </button>
 
-      <div className="menu__link">
+      <button className="menu__link">
         <i className="fa fa-plus"></i>
-      </div>
+      </button>
 
-      <div className="menu__link">
+      <button className="menu__link">
         <i className="fa fa-user"></i>
-      </div>
+      </button>
     </nav>
   );
 }
