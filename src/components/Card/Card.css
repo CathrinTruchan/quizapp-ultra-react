@@ -46,7 +46,7 @@
 }
 
 .card__tags {
-  align-self: flex-start;
+  justify-content: space-around;
   margin-top: 30px;
   display: flex;
   gap: 10px;
