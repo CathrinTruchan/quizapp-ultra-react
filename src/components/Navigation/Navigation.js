@@ -1,8 +1,7 @@
-import { useState } from "react";
 import "./Navigation.css";
 
-export default function Navigation() {
-  const [currentPage, setCurrentPage] = useState("home");
+export default function Navigation({ currentPage, setCurrentPage }) {
+  // const [currentPage, setCurrentPage] = useState("home");
 
   return (
     <nav className="menu">

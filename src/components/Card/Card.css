@@ -1,5 +1,5 @@
 .card {
-  width: auto;
+  width: 380px;
   box-shadow: 1px 3px 3px var(--tertiary-color);
   padding: 30px 30px;
   display: flex;
@@ -79,8 +79,8 @@
 
 .card__bookmark--active {
   position: absolute;
-  top: -15px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   font-size: 30px;
   color: var(--primary-color);
 }
