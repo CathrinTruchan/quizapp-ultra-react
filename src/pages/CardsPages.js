@@ -1,9 +1,9 @@
-import Card from "../components/Card/Card";
+import { Card } from "../components/Card/Card";
 
 function CardsPages({ cards }) {
   return (
     <div className="card-container">
-      {cards.map(({ question, answer, tag, id, bookmarked, setBookmark }) => {
+      {cards.map(({ question, answer, tag, id, bookmarked }) => {
         return (
           <Card
             question={question}
@@ -11,7 +11,6 @@ function CardsPages({ cards }) {
             tagContent={tag}
             key={id}
             bookmarked={bookmarked}
-            onBookmark={setBookmark}
           />
         );
       })}

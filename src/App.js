@@ -5,6 +5,8 @@ import { useState } from "react";
 import { CardsPages } from "./pages/CardsPages";
 import { ProfilePage } from "./pages/ProfilePage";
 import { CreatePage } from "./pages/CreatePage";
+import { AddCard } from "./components/Add/Add";
+import { Card } from "./components/Card/Card";
 
 const cardsArray = [
   {
@@ -42,26 +44,25 @@ const cardsArray = [
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [bookmarked, setBookmark] = useState(cardsArray);
-  const filteredCards = cardsArray.filter((card) => {
+  const [cards, setCard] = useState(cardsArray);
+  const filteredCards = cards.filter((card) => {
     return card.bookmarked === true;
   });
 
-  console.log(filteredCards);
+  function appendCard(question, answer, tag) {
+    const newCard = Card();
+    setCard(newCard);
+  }
+
   return (
     <div>
       <Header />
       <main className="card-container">
-        {currentPage === "home" && (
-          <CardsPages
-            cards={cardsArray}
-            bookmarked={bookmarked}
-            onBookmark={setBookmark}
-          />
-        )}
+        {currentPage === "home" && <CardsPages cards={cards} />}
         {currentPage === "bookmark" && <CardsPages cards={filteredCards} />}
         {currentPage === "profile" && <ProfilePage />}
         {currentPage === "add" && <CreatePage />}
+        <AddCard />
       </main>
       <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>

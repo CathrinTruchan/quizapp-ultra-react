@@ -2,13 +2,7 @@ import "./Card.css";
 import { Tags } from "../Tags/Tag";
 import { useState } from "react";
 
-export default function Card({
-  question,
-  answer,
-  tagContent,
-  bookmarked,
-  setBookmark,
-}) {
+function Card({ question, answer, tagContent, bookmarked }) {
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
@@ -40,3 +34,5 @@ export default function Card({
     </section>
   );
 }
+
+export { Card };
