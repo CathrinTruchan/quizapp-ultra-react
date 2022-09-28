@@ -1,11 +1,13 @@
 import "./App.css";
 import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation/Navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardsPages } from "./pages/CardsPages";
 import { ProfilePage } from "./pages/ProfilePage";
 import { CreatePage } from "./pages/CreatePage";
-import { AddCard } from "./components/Add/Add";
+import CardForm from "./components/CardForm/CardForm";
+import { nanoid } from "nanoid";
+import { Routes, Route } from "react-router-dom";
 import { Card } from "./components/Card/Card";
 
 const cardsArray = [
@@ -43,28 +45,87 @@ const cardsArray = [
 ];
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("home");
-  const [cards, setCard] = useState(cardsArray);
+  //const [currentPage, setCurrentPage] = useState("home");
+  const [cards, setCards] = useState(() => {
+    return JSON.parse(localStorage.getItem("cards")) ?? cardsArray;
+  });
   const filteredCards = cards.filter((card) => {
     return card.bookmarked === true;
   });
 
-  function appendCard(question, answer, tag) {
-    const newCard = Card();
-    setCard(newCard);
+  function toggleBookmark(cardID) {
+    setCards(
+      cards.map((card) =>
+        cardID === card.id ? { ...card, bookmarked: !card.bookmarked } : card
+      )
+    );
   }
+
+  function deleteCard(cardID) {
+    const newCards = cards.filter((card) => cardID !== card.id);
+    setCards(newCards);
+    console.log(newCards);
+  }
+
+  function appendCard(question, answer, tags) {
+    setCards([
+      ...cards,
+      {
+        question,
+        answer,
+        tag: tags === "" ? [] : tags.split(",").map((tag) => tag.trim()),
+        id: nanoid(),
+        bookmarked: false,
+      },
+    ]);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("cards", JSON.stringify(cards));
+  }, [cards]);
+
+  useEffect(() => {
+    JSON.parse(localStorage.getItem("cards"));
+  }, []);
 
   return (
     <div>
       <Header />
       <main className="card-container">
-        {currentPage === "home" && <CardsPages cards={cards} />}
-        {currentPage === "bookmark" && <CardsPages cards={filteredCards} />}
-        {currentPage === "profile" && <ProfilePage />}
-        {currentPage === "add" && <CreatePage />}
-        <AddCard />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <CardsPages
+                cards={cards}
+                onDeleteCard={deleteCard}
+                onToogleBookmark={toggleBookmark}
+              />
+            }
+          />
+          <Route
+            path="/bookmark"
+            element={<CardsPages cards={filteredCards} />}
+          />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/add" element={<CreatePage appendCard={appendCard} />} />
+        </Routes>
+
+        {cards.map(({ question, answer, tag, id, bookmarked }) => {
+          return (
+            <Card
+              question={question}
+              answer={answer}
+              tagContent={tag}
+              key={id}
+              bookmarked={bookmarked}
+              onDeleteCard={() => deleteCard(id)}
+              onToggleBookmark={() => toggleBookmark(id)}
+            />
+          );
+        })}
       </main>
-      <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Navigation />
     </div>
   );
 }

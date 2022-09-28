@@ -2,12 +2,22 @@ import "./Card.css";
 import { Tags } from "../Tags/Tag";
 import { useState } from "react";
 
-function Card({ question, answer, tagContent, bookmarked }) {
+function Card({
+  question,
+  answer,
+  tagContent,
+  bookmarked,
+  onDeleteCard,
+  onToggleBookmark,
+}) {
   const [showAnswer, setShowAnswer] = useState(false);
-
   return (
     <section className="card">
-      <div className="card__bookmark" aria-label="Bookmark">
+      <div
+        onClick={onToggleBookmark}
+        className="card__bookmark"
+        aria-label="Bookmark"
+      >
         <i
           className={
             bookmarked
@@ -31,6 +41,7 @@ function Card({ question, answer, tagContent, bookmarked }) {
           return <Tags key={entry} nameOfTag={entry} />;
         })}
       </ul>
+      <button onClick={onDeleteCard}>Delete</button>
     </section>
   );
 }

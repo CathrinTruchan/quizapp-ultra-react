@@ -1,6 +1,6 @@
 import { Card } from "../components/Card/Card";
 
-function CardsPages({ cards }) {
+function CardsPages({ cards, onDeleteCard, onToggleBookmark }) {
   return (
     <div className="card-container">
       {cards.map(({ question, answer, tag, id, bookmarked }) => {
@@ -11,6 +11,8 @@ function CardsPages({ cards }) {
             tagContent={tag}
             key={id}
             bookmarked={bookmarked}
+            onDeleteCard={() => onDeleteCard(id)}
+            onToggleBookmark={() => onToggleBookmark(id)}
           />
         );
       })}

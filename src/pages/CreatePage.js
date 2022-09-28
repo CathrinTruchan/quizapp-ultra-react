@@ -1,8 +1,10 @@
-function CreatePage() {
+import CardForm from "../components/CardForm/CardForm";
+
+function CreatePage({ appendCard }) {
   return (
     <section>
       <h2>Create Page</h2>
-      <p>Not much to see here...still under construction</p>
+      <CardForm appendCard={appendCard} />
     </section>
   );
 }
