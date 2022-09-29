@@ -99,19 +99,25 @@ function App() {
               <CardsPages
                 cards={cards}
                 onDeleteCard={deleteCard}
-                onToogleBookmark={toggleBookmark}
+                onToggleBookmark={toggleBookmark}
               />
             }
           />
           <Route
             path="/bookmark"
-            element={<CardsPages cards={filteredCards} />}
+            element={
+              <CardsPages
+                cards={filteredCards}
+                onDeleteCard={deleteCard}
+                onToggleBookmark={toggleBookmark}
+              />
+            }
           />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/add" element={<CreatePage appendCard={appendCard} />} />
         </Routes>
 
-        {cards.map(({ question, answer, tag, id, bookmarked }) => {
+        {/* {cards.map(({ question, answer, tag, id, bookmarked }) => {
           return (
             <Card
               question={question}
@@ -123,7 +129,7 @@ function App() {
               onToggleBookmark={() => toggleBookmark(id)}
             />
           );
-        })}
+        })} */}
       </main>
       <Navigation />
     </div>
